@@ -22,7 +22,7 @@ function App() {
   };
 
   const handleComplete = (id, completed) => {
-    axios.put(`http://localhost:3001/todos/${id}`, { completed: !completed })
+    axios.put(`http://localhost:3001/todos/${id}`, { completed: completed })
       .then(res => setTodos(todos.map(todo => todo.id === id ? res.data : todo)))
       .catch(err => console.log(err));
   };
