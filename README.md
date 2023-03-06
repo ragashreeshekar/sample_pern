@@ -1,10 +1,12 @@
 # sample_pern
 Create a table todos in user database
 ```
-CREATE TABLE todos (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  title TEXT,
-  completed BOOLEAN DEFAULT false
+  name TEXT,
+  phone TEXT,
+  email TEXT,
+  pwd TEXT
 );
 ```
 Backend Setup :

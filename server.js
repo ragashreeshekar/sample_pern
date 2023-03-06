@@ -15,28 +15,11 @@ const pool = new Pool({
   port: 5432,
 });
 
-app.get('/todos', async (req, res) => {
-  const { rows } = await pool.query('SELECT * FROM todos;');
-  res.json(rows);
-});
-
-app.post('/todos', async (req, res) => {
-  const { title } = req.body;
-  const { rows } = await pool.query('INSERT INTO todos (title) VALUES ($1) RETURNING *;', [title]);
+app.post('/signup', async (req, res) => {
+  const { name, phone, email, pwd } = req.body;
+  console.log(name, phone, email, pwd)
+  const { rows } = await pool.query('INSERT INTO users (name, phone, email, pwd) VALUES ($1, $2, $3, $4) RETURNING *;', [name, phone, email, pwd]);
   res.json(rows[0]);
-});
-
-app.put('/todos/:id', async (req, res) => {
-  const { id } = req.params;
-  const { completed } = req.body;
-  const { rows } = await pool.query('UPDATE todos SET completed = $1 WHERE id = $2 RETURNING *;', [completed, id]);
-  res.json(rows[0]);
-});
-
-app.delete('/todos/:id', async (req, res) => {
-  const { id } = req.params;
-  await pool.query('DELETE FROM todos WHERE id = $1;', [id]);
-  res.sendStatus(204);
 });
 
 app.listen(process.env.WEBPORT, () => {
